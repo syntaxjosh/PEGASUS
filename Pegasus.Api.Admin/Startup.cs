@@ -32,7 +32,7 @@ namespace Pegasus.Api.Admin
         {
             services.AddControllers();
             services.AddDbContext<PegasusDbContext>(options =>
-               options.UseSqlite("Data Source = C:\\Users\\semdhong\\source\repos\\PEGAUS\\Pegasus.Data\\pegasus.db; "));
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IBarangayProfile, BarangayProfile>();
             services.AddTransient<ILguProfileService, LguProfileService>();

@@ -1,0 +1,35 @@
+﻿{
+   "ContextClassName": "PegasusDbContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "DoNotCombineNamespace": false,
+   "IdReplace": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": null,
+   "ProjectRootNamespace": "Pegasus.Data",
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Barangay]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[LguProfile]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PersonProfile]"
+      }
+   ],
+   "UseDatabaseNames": true,
+   "UseDbContextSplitting": true,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseSpatial": false
+}
