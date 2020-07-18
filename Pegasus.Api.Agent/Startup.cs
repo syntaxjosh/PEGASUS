@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Pegasus.Repository;
+using Pegasus.Services.Maintenance;
+using Pegasus.Services.Profile;
 
 namespace Pegasus.Api.Agent
 {
@@ -26,6 +29,10 @@ namespace Pegasus.Api.Agent
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IBarangayProfile, BarangayProfile>();
+            services.AddTransient<ILguProfileService, LguProfileService>();
+            services.AddTransient<IPersonProfileService, PersonProfileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
