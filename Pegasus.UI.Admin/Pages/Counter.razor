@@ -1,0 +1,35 @@
+﻿@page "/counter"
+@inject HttpClient _httpclient;
+@using  Pegasus.Models
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+@if (brgy.Count == 0)
+{  <p>No Records Found</p>}
+<table>
+    <thead>
+        <tr>Barangay</tr>
+    </thead>
+    <tbody>
+        @foreach (var br in brgy)
+        {
+            <tr>
+                <td>@br.BarangayName</td>
+            </tr>
+}
+    </tbody>
+</table>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+@code{
+    List<Pegasus.Models.Maintenance.BarangayModel> brgy = new List<Models.Maintenance.BarangayModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        {
+            brgy = await _httpclient.GetJsonAsync<List<Pegasus.Models.Maintenance.BarangayModel>>("https://localhost:44399/api/Barangay");
+        }
+
+    }
+}
