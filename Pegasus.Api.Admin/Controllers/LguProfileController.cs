@@ -34,11 +34,11 @@ namespace Pegasus.Api.Admin.Controllers
             return _lguprofile.GetLguProfile(id);
         }
 
-        [HttpGet("{name}")]
-        public ActionResult<LguProfileModel> GetName(string name)
-        {
-            return _lguprofile.GetLguProfile(name);
-        }
+        //[HttpGet("{name}")]
+        //public ActionResult<LguProfileModel> GetName(string name)
+        //{
+        //    return _lguprofile.GetLguProfile(name);
+        //}
 
         // POST api/<BarangayController>
         [HttpPost]
@@ -48,8 +48,8 @@ namespace Pegasus.Api.Admin.Controllers
         }
 
         // PUT api/<BarangayController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, LguProfileModel model)
+        
+        public void Put(LguProfileModel model)
         {
             _lguprofile.UpdateLguProfile(model);
         }

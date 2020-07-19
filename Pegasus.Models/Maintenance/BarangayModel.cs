@@ -14,6 +14,8 @@ namespace Pegasus.Models.Maintenance
         public string BarangayLocation { get; set; }
         public string BarangayLogoPath { get; set; }
         public string BarangayQrCode { get; set; }
+        public string BarangayLgu { get; set; }
+        public int? LguId { get; set; }
         public DateTime? DateCreated { get; set; }
     }
 

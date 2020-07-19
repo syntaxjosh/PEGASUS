@@ -34,11 +34,11 @@ namespace Pegasus.Api.Admin.Controllers
             return  _brgyprofile.GetBarangay(id);
         }
 
-        [HttpGet("{name}")]
-        public ActionResult<BarangayModel> GetName(string name)
-        {
-            return _brgyprofile.GetBarangay(name);
-        }
+        //[HttpGet("{name}")]
+        //public ActionResult<BarangayModel> GetName(string name)
+        //{
+        //    return _brgyprofile.GetBarangay(name);
+        //}
 
         // POST api/<BarangayController>
         [HttpPost]
@@ -48,8 +48,8 @@ namespace Pegasus.Api.Admin.Controllers
         }
 
         // PUT api/<BarangayController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, BarangayModel model)
+        
+        public void Put(BarangayModel model)
         {
             _brgyprofile.UpdateBarangay(model);
         }

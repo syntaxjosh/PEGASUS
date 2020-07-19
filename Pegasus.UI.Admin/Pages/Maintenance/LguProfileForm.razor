@@ -1,5 +1,31 @@
-﻿<h3>LguProfileForm</h3>
+﻿<EditForm Model="@Lgus" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Local Government Unit</label>
+        <div>
+            <InputText class="col-md-4 form-control" @bind-Value="@Lgus.LguName" />
+            <ValidationMessage For="@(() => Lgus.LguName)" />
+        </div>
+    </div>
+    <label>Address</label>
+    <div class="form-group">
+        <div>
+            <InputText class="col-md-4 form-control" @bind-Value="@Lgus.LguAddress" />
+            <ValidationMessage For="@(() => Lgus.LguAddress)" />
+        </div>
+    </div>
 
+    <div class="form-group">
+        <button type="submit" class="btn btn-dark">
+            @ButtonText
+        </button>
+    </div>
+
+
+</EditForm>
 @code {
 
+    [Parameter] public Pegasus.Models.Maintenance.LguProfileModel Lgus { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
 }

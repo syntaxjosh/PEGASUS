@@ -20,6 +20,7 @@ namespace Pegasus.Services.Maintenance
         {
             _repoBarangay.AddAsync(new Barangay
             {
+                LguId = model.LguId,
                 BarangayName = model.BarangayName,
                 BarangayAddress = model.BarangayAddress,
                 BarangayLocation = model.BarangayLocation,
@@ -36,6 +37,7 @@ namespace Pegasus.Services.Maintenance
             return _repoBarangay.GetAll().Select(x => new BarangayModel
             {
                 Id = x.Id,
+                LguId = x.LguId,
                 BarangayAddress = x.BarangayAddress,
                 BarangayLocation = x.BarangayLocation,
                 BarangayLogoPath = x.BarangayLogoPath,
@@ -50,6 +52,7 @@ namespace Pegasus.Services.Maintenance
             return _repoBarangay.GetAll().Select(x => new BarangayModel
             {
                 Id = x.Id,
+                LguId = x.LguId,
                 BarangayAddress = x.BarangayAddress,
                 BarangayLocation = x.BarangayLocation,
                 BarangayLogoPath = x.BarangayLogoPath,
@@ -63,6 +66,8 @@ namespace Pegasus.Services.Maintenance
         {
             return _repoBarangay.GetAll().Select(x=> new BarangayModel { 
                 Id=x.Id,
+                 LguId =x.LguId,
+                 BarangayLgu =x.Lgu.LguName,
                  BarangayAddress=x.BarangayAddress,
                   BarangayLocation=x.BarangayLocation,
                    BarangayLogoPath =x.BarangayLogoPath,
@@ -87,6 +92,7 @@ namespace Pegasus.Services.Maintenance
                 BarangayLocation = model.BarangayLocation,
                 BarangayLogoPath = model.BarangayLogoPath,
                 BarangayQrCode = model.BarangayQrCode,
+                LguId = model.LguId,
                 DateCreated = DateAndTime.Now
             });
         }

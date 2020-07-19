@@ -1,5 +1,23 @@
-﻿<h3>BrgyEdit</h3>
+﻿@page "/maintenance/brgy/edit/{brgyId:int}"
+@inject HttpClient http
+@inject NavigationManager navmgr
+
+<h3>Edit Barangay</h3>
+<BrgyForm Brgy="@brgymodel" ButtonText="Save" OnValidSubmit="@EditBrgy" />
 
 @code {
+    [Parameter] public int brgyId { get; set; }
+    Pegasus.Models.Maintenance.BarangayModel brgymodel = new Pegasus.Models.Maintenance.BarangayModel();
 
+    protected async override Task OnParametersSetAsync()
+    {
+        brgymodel = await http.GetJsonAsync<Pegasus.Models.Maintenance.BarangayModel>($"https://localhost:44399/api/Barangay/" + brgyId);
+    }
+
+    async Task EditBrgy()
+    {
+        await http.PutJsonAsync("https://localhost:44399/api/Barangay", brgymodel);
+        navmgr.NavigateTo("/maintenance/brgy");
+    }
 }
+

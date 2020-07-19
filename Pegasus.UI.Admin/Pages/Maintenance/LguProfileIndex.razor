@@ -1,6 +1,71 @@
-﻿@page "/LguProfile"
-<h3>Local Government Units</h3>
+﻿<h3>Local Government Unit</h3>
+@page "/maintenance/lguprofile"
+@inject HttpClient http
+@inject IJSRuntime js
+@using Pegasus.Models.Maintenance
+
+<a class="btn btn-success" href="maintenance/lguprofile/create">Create New</a>
+@if (lguprofile == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+
+                <th>S/N</th>
+                <th>Name</th>
+                <th>Address</th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var br in lguprofile)
+            {
+                <tr>
+                    <td>
+                        <a class="btn btn-info" href="/maintenance/lguprofile/edit/@br.Id">Edit</a>
+                        <a class="btn btn-danger" @onclick="@(()=>DeleteLguProfile(br.Id))">Delete</a>
+                    </td>
+
+                    <td>@br.Id</td>
+                    <td>@br.LguName</td>
+                    <td>@br.LguAddress</td>
+
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code {
+    List<LguProfileModel> lguprofile { get; set; }
 
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadLguProfile();
+    }
+
+    async Task LoadLguProfile()
+    {
+        lguprofile = await http.GetJsonAsync<List<LguProfileModel>>("https://localhost:44399/api/LguProfile");
+    }
+
+    async Task DeleteLguProfile(int clientId)
+    {
+        var dataSelected = lguprofile.First(x => x.Id == clientId);
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {dataSelected.LguName}?"))
+        {
+            await http.DeleteAsync($"client/{clientId}");
+            await LoadLguProfile();
+        }
+    }
 }

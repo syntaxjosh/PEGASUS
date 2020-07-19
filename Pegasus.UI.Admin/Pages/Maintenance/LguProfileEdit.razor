@@ -1,5 +1,23 @@
-﻿<h3>LguProfileEdit</h3>
+﻿@page "/maintenance/lguprofile/edit/{lguId:int}"
+@inject HttpClient http
+@inject NavigationManager navmgr
+
+<h3>Edit Lgu</h3>
+<LguProfileForm Lgus="@lgumodel" ButtonText="" OnValidSubmit="@EditClient" />
 
 @code {
+    [Parameter] public int lguId { get; set; }
+    Pegasus.Models.Maintenance.LguProfileModel lgumodel = new Pegasus.Models.Maintenance.LguProfileModel();
 
+    protected async override Task OnParametersSetAsync()
+    {
+        lgumodel = await http.GetJsonAsync<Pegasus.Models.Maintenance.LguProfileModel>($"https://localhost:44399/api/LguProfile/"+lguId);
+    }
+
+    async Task EditClient()
+    {
+        await http.PutJsonAsync("https://localhost:44399/api/LguProfile", lgumodel);
+        navmgr.NavigateTo("/maintenance/lguprofile");
+    }
 }
+

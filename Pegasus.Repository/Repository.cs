@@ -26,7 +26,7 @@ namespace Pegasus.Repository
             }
         }
 
-        public async Task<TEntity> AddAsync(TEntity entity)
+        public void AddAsync(TEntity entity)
         {
             if (entity == null)
             {
@@ -35,18 +35,18 @@ namespace Pegasus.Repository
 
             try
             {
-                await _pegasusDbContext.AddAsync(entity);
-                await _pegasusDbContext.SaveChangesAsync();
+                _pegasusDbContext.Set<TEntity>().Add(entity);
+                _pegasusDbContext.SaveChanges();
 
-                return entity;
+                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw new Exception($"{nameof(entity)} could not be saved");
             }
         }
 
-        public async Task<TEntity> UpdateAsync(TEntity entity)
+        public void UpdateAsync(TEntity entity)
         {
             if (entity == null)
             {
@@ -55,10 +55,10 @@ namespace Pegasus.Repository
 
             try
             {
-                _pegasusDbContext.Update(entity);
-                await _pegasusDbContext.SaveChangesAsync();
+                _pegasusDbContext.Set<TEntity>().Update(entity);
+                _pegasusDbContext.SaveChanges();
 
-                return entity;
+               
             }
             catch (Exception)
             {

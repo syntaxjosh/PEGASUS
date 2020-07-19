@@ -1,5 +1,71 @@
-﻿<h3>BrgyIndex</h3>
+﻿<h3>Barangay</h3>
+@page "/maintenance/brgy"
+@inject HttpClient http
+@inject IJSRuntime js
+
+
+<a class="btn btn-success" href="maintenance/brgy/create">Create New</a>
+@if (brgy == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+
+                <th>LGU</th>
+                <th>Name</th>
+                <th>Address</th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var br in brgy)
+            {
+                <tr>
+                    <td>
+                        <a class="btn btn-info" href="/maintenance/brgy/edit/@br.Id">Edit</a>
+                        <a class="btn btn-danger" @onclick="@(()=>DeleteClient(br.Id))">Delete</a>
+                    </td>
+
+                    <td>@br.BarangayLgu</td>
+                    <td>@br.BarangayName</td>
+                    <td>@br.BarangayAddress</td>
+
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code {
+    List<BarangayModel> brgy { get; set; }
 
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadBarangays();
+    }
+
+    async Task LoadBarangays()
+    {
+        brgy = await http.GetJsonAsync<List<BarangayModel>>("http://localhost:58913/api/Barangay");
+    }
+
+    async Task DeleteClient(int clientId)
+    {
+        var clientSelected = brgy.First(x => x.Id == clientId);
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {clientSelected.BarangayName}?"))
+        {
+            await http.DeleteAsync($"client/{clientId}");
+            await LoadBarangays();
+        }
+    }
 }

@@ -1,0 +1,27 @@
+﻿@page "/brgymap"
+@inject HttpClient http
+@inject NavigationManager navmgr
+
+
+
+
+@code {
+    List<BarangayModel> brgy { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadBarangays();
+    }
+
+    async Task LoadBarangays()
+    {
+        brgy = await http.GetJsonAsync<List<BarangayModel>>("http://localhost:58913/api/Barangay");
+    }
+
+
+}
+<RadzenTabs >
+        <Tabs  >
+           
+        </Tabs>
+    </RadzenTabs>

@@ -16,7 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Pegasus.UI.Admin.Areas.Identity;
 using Pegasus.UI.Admin.Data;
 using System.Net.Http;
-
+using Radzen;
 namespace Pegasus.UI.Admin
 {
     public class Startup
@@ -38,6 +38,9 @@ namespace Pegasus.UI.Admin
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<HttpClient>();
+
+            services.AddScoped<DialogService>();
+            services.AddScoped<NotificationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,8 +7,8 @@ namespace Pegasus.Repository
     {
         IQueryable<TEntity> GetAll();
 
-        Task<TEntity> AddAsync(TEntity entity);
+        void AddAsync(TEntity entity);
 
-        Task<TEntity> UpdateAsync(TEntity entity);
+       void UpdateAsync(TEntity entity);
     }
 }

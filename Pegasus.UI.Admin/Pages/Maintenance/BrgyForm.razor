@@ -1,5 +1,61 @@
-﻿<h3>BrgyForm</h3>
+﻿@inject HttpClient http
+@inject IJSRuntime js
+@using Pegasus.Models.Maintenance
+<EditForm Model="@Brgy" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <label>LGU</label>
+    <div class="form-group">
+        <div>
+            <select class="col-md-4 form-control" @bind="@Brgy.LguId">
+                @if (lguprofile != null)
+                {
+                    @foreach (var lgu in lguprofile)
+                    {
+                        <option value="@lgu.Id">@lgu.LguName</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Barangay Name</label>
+        <div>
+            <InputText class="col-md-4 form-control" @bind-Value="@Brgy.BarangayName" />
+            <ValidationMessage For="@(() => Brgy.BarangayName)" />
+        </div>
+    </div>
+    <label>Address</label>
+    <div class="form-group">
+        <div>
+            <InputText class="col-md-4 form-control" @bind-Value="@Brgy.BarangayAddress" />
+            <ValidationMessage For="@(() => Brgy.BarangayAddress)" />
+        </div>
+    </div>
 
+    <div class="form-group">
+        <button type="submit" class="btn btn-dark">
+            @ButtonText
+        </button>
+    </div>
+
+
+</EditForm>
 @code {
+
+    [Parameter] public Pegasus.Models.Maintenance.BarangayModel Brgy { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    List<LguProfileModel> lguprofile { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadLguProfile();
+    }
+
+    async Task LoadLguProfile()
+    {
+        lguprofile = await http.GetJsonAsync<List<LguProfileModel>>("https://localhost:44399/api/LguProfile");
+    }
 
 }

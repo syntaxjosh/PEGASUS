@@ -1,5 +1,18 @@
-﻿<h3>BrgyCreate</h3>
+﻿@page "/maintenance/brgy/create"
+@inject HttpClient http
+@inject NavigationManager navmgr
+
+<h3>Create new Barangay</h3>
+<BrgyForm Brgy="@brgymodel" ButtonText="Create" OnValidSubmit="@CreateBrgy" />
 
 @code {
 
+    Pegasus.Models.Maintenance.BarangayModel brgymodel = new Pegasus.Models.Maintenance.BarangayModel();
+
+    async Task CreateBrgy()
+    {
+        await http.PostJsonAsync("https://localhost:44399/api/Barangay", brgymodel);
+        navmgr.NavigateTo("/maintenance/brgy");
+    }
 }
+

@@ -1,5 +1,18 @@
-﻿<h3>LguProfileCreate</h3>
+﻿@page "/maintenance/lguprofile/create"
+@inject HttpClient http
+@inject NavigationManager navmgr
+
+<h3>Create new Lgu</h3>
+<LguProfileForm Lgus="@lgumodel" ButtonText="Create Client" OnValidSubmit="@CreateLgu" />
 
 @code {
 
+    Pegasus.Models.Maintenance.LguProfileModel lgumodel = new Pegasus.Models.Maintenance.LguProfileModel();
+
+    async Task CreateLgu()
+    {
+        await http.PostJsonAsync("https://localhost:44399/api/LguProfile", lgumodel);
+        navmgr.NavigateTo("/maintenance/lguprofile");
+    }
 }
+
