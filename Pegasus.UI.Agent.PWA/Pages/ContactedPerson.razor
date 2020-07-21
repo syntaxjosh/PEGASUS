@@ -2,11 +2,10 @@
 @inject HttpClient http
 @inject NavigationManager navmgr
 
-<h3>Contacted Person</h3>
 
 <a class="btn btn-success" href="cases/createcontact/@brgymodel.Id">Add New Contact</a>
-
-@brgymodel.Fullname;
+<br/><br/>
+<h1>Contacted Person</h1>
 
 @if (person == null)
 {
@@ -17,28 +16,18 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th></th>
-
                 <th>Name</th>
-                <th>Barangay</th>
                 <th>Status</th>
-                <th>Date</th>
-
+                
             </tr>
         </thead>
         <tbody>
             @foreach (var per in person)
             {
                 <tr>
-                    <td>
-                        <a class="btn btn-info" href="/cases/edit/@per.Id">Edit</a>
-
-                    </td>
 
                     <td>@per.Fullname</td>
-                    <td>@per.Barangay</td>
                     <td>@per.PersonStatus</td>
-                    <td>@per.DateCreated</td>
 
                 </tr>
 }
