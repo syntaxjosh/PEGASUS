@@ -1,0 +1,21 @@
+﻿@page "/cases/createcontact/{principalId:int}"
+
+@inject HttpClient http
+@inject NavigationManager navmgr
+
+<h3>Create new Barangay</h3>
+<CaseForm Person="@Persons" ButtonText="Create" OnValidSubmit="@CreateCase" />
+
+@code {
+
+    PersonProfilesModel Persons = new PersonProfilesModel();
+    [Parameter] public int principalId { get; set; }
+
+    async Task CreateCase()
+    {
+        Persons.PrincipalPersonId = principalId;
+
+        await http.PutAsJsonAsync("https://localhost:44326/api/Person", Persons);
+        navmgr.NavigateTo("/cases/contactedperson/" + principalId);
+    }
+}

@@ -1,0 +1,23 @@
+﻿@page "/cases/edit/{brgyId:int}"
+@inject HttpClient http
+@inject NavigationManager navmgr
+
+<h3>Edit Barangay</h3>
+<CaseForm Person="@brgymodel" ButtonText="Save" OnValidSubmit="@EditBrgy" />
+
+@code {
+    [Parameter] public int brgyId { get; set; }
+    PersonProfilesModel brgymodel = new PersonProfilesModel();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        brgymodel = await http.GetFromJsonAsync<PersonProfilesModel>($"https://localhost:44326/api/Person/" + brgyId);
+    }
+
+    async Task EditBrgy()
+    {
+        await http.PutAsJsonAsync("https://localhost:44326/api/Person", brgymodel);
+        navmgr.NavigateTo("/cases");
+    }
+}
+

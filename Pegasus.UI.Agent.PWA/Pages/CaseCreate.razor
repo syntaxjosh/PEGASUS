@@ -1,0 +1,18 @@
+﻿@page "/cases/create"
+
+@inject HttpClient http
+@inject NavigationManager navmgr
+
+    <h3>Create new Barangay</h3>
+    <CaseForm Person="@Persons" ButtonText="Create" OnValidSubmit="@CreateCase" />
+
+@code { 
+
+    PersonProfilesModel Persons = new PersonProfilesModel();
+
+    async Task CreateCase()
+    { 
+    await http.PutAsJsonAsync("https://localhost:44326/api/Person", Persons);
+    navmgr.NavigateTo("/cases");
+    } 
+    }

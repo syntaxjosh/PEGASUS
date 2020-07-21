@@ -1,0 +1,71 @@
+﻿@page "/cases/contactedperson/{contactId:int}"
+@inject HttpClient http
+@inject NavigationManager navmgr
+
+<h3>Contacted Person</h3>
+
+<a class="btn btn-success" href="cases/createcontact/@brgymodel.Id">Add New Contact</a>
+
+@brgymodel.Fullname;
+
+@if (person == null)
+{
+    <p><em>Loading...</em></p> }
+else
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+
+                <th>Name</th>
+                <th>Barangay</th>
+                <th>Status</th>
+                <th>Date</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var per in person)
+            {
+                <tr>
+                    <td>
+                        <a class="btn btn-info" href="/cases/edit/@per.Id">Edit</a>
+
+                    </td>
+
+                    <td>@per.Fullname</td>
+                    <td>@per.Barangay</td>
+                    <td>@per.PersonStatus</td>
+                    <td>@per.DateCreated</td>
+
+                </tr>
+}
+        </tbody>
+    </table>}
+
+@code { 
+
+    List<PersonProfilesModel> person = new List<PersonProfilesModel>();
+
+    [Parameter] public int contactId { get; set; }
+
+    PersonProfilesModel brgymodel = new PersonProfilesModel();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        brgymodel = await http.GetFromJsonAsync<PersonProfilesModel>($"https://localhost:44326/api/Person/" + contactId);
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadContactedPerson();
+    }
+
+    async Task LoadContactedPerson()
+    {
+        person = await http.GetFromJsonAsync<List<PersonProfilesModel>>("https://localhost:44326/api/Contacts/"+ contactId);
+    }
+
+    }
+

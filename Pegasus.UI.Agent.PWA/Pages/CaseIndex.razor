@@ -1,0 +1,63 @@
+﻿@page "/cases"
+@inject HttpClient http
+@inject IJSRuntime js
+<center><h3>Cases</h3></center>
+
+<a class="btn btn-success" href="/cases/create">Create New</a>
+
+@if (person == null)
+{
+<p><em>Loading...</em></p> }
+            else
+            {
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+
+            <th>Name</th>
+            <th>Barangay</th>
+            <th>Status</th>
+            <th>Date</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var per in person)
+        {
+        <tr>
+            <td>
+                <a class="btn btn-info" href="/cases/edit/@per.Id">Edit</a>
+                <a class="btn btn-info" href="/cases/contactedperson/@per.Id">View Contacted Person</a>
+
+            </td>
+
+            <td>@per.Fullname</td>
+            <td>@per.Barangay</td>
+            <td>@per.PersonStatus</td>
+            <td>@per.DateCreated</td>
+
+
+
+        </tr>}
+    </tbody>
+</table>}
+
+@code {
+
+    List<PersonProfilesModel> person = new List<PersonProfilesModel>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadBarangays();
+    }
+
+    async Task LoadBarangays()
+    {
+        person = await http.GetFromJsonAsync<List<PersonProfilesModel>>("https://localhost:44326/api/Person");
+    }
+
+
+}

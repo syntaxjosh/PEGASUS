@@ -50,7 +50,7 @@ namespace Pegasus.Api.Admin
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseHttpsRedirection();
 
             app.UseRouting();

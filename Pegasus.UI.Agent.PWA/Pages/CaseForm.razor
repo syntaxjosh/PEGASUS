@@ -1,0 +1,60 @@
+﻿
+@inject HttpClient http
+@inject IJSRuntime js
+
+
+    <EditForm Model="@Person" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+
+
+
+        <div class="form-group">
+            <label>Name</label>
+            <div>
+                <InputText class="col-md-4 form-control" @bind-Value="@Person.Fullname" />
+                <ValidationMessage For="@(() => Person.Fullname)" />
+            </div>
+        </div>
+        <label>Barangay</label>
+        <div class="form-group">
+            <div>
+                <select class="col-md-4 form-control" @bind="@Person.BgryId">
+                    @if (brgyprofile != null)
+                    {
+                        @foreach (var lgu in brgyprofile)
+                        {
+                        <option value="@lgu.Id">@lgu.BarangayName</option>
+                    }}
+                                    </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Status</label>
+            <div>
+                <InputText class="col-md-4 form-control" @bind-Value="@Person.PersonStatus" />
+                <ValidationMessage For="@(() => Person.PersonStatus)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-dark">
+                @ButtonText
+            </button>
+        </div>
+    </EditForm>
+
+@code { 
+    [Parameter] public PersonProfilesModel Person { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    List<BarangayModel> brgyprofile { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadLguProfile();
+    }
+
+    async Task LoadLguProfile()
+    {
+        brgyprofile = await http.GetFromJsonAsync<List<BarangayModel>>("https://localhost:44399/api/Barangay");
+    } }
