@@ -46,6 +46,7 @@ namespace Pegasus.Api.Agent
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseCors(policy =>
     policy.AllowAnyOrigin().AllowAnyHeader()
     .AllowAnyMethod());
