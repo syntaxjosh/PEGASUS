@@ -53,7 +53,14 @@ namespace Pegasus.Services.Profile
                 QDateEnded = x.QDateEnded,
                 PicPath = x.PicPath,
                 DateCreated = x.DateCreated,
-                QrCode = x.QrCode
+                QrCode = x.QrCode,
+                Barangay = new Models.Maintenance.BarangayModel
+                {
+                    Id = x.Brgy.Id,
+                    LguId = x.LguId,
+                    BarangayAddress = x.Brgy.BarangayAddress,
+                    BarangayName = x.Brgy.BarangayName,
+                }
             }).Where(x => x.PrincipalPersonId == id).ToList();
         }
        
@@ -110,7 +117,14 @@ namespace Pegasus.Services.Profile
                 QDateEnded = x.QDateEnded,
                 PicPath = x.PicPath,
                 DateCreated = x.DateCreated,
-                QrCode = x.QrCode
+                QrCode = x.QrCode,
+                Barangay =new Models.Maintenance.BarangayModel
+                {
+                    Id = x.Brgy.Id,
+                    LguId = x.LguId,
+                    BarangayAddress = x.Brgy.BarangayAddress,
+                    BarangayName = x.Brgy.BarangayName,
+                }
             });
         }
 
