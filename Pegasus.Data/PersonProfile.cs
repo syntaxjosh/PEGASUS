@@ -18,6 +18,10 @@ namespace Pegasus.Data
         public string QrCode { get; set; }
         [Column(TypeName = "text")]
         public string PicPath { get; set; }
+        [Column(TypeName = "text")]
+        public string Address { get; set; }
+        [Column(TypeName = "text")]
+        public string Contact { get; set; }
         public int? PrincipalPersonId { get; set; }
         public int? QDays { get; set; }
         [Column(TypeName = "datetime")]

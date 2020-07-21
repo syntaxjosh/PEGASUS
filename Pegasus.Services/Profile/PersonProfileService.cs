@@ -33,7 +33,9 @@ namespace Pegasus.Services.Profile
                 QDateEnded = model.QDateEnded,
                 PicPath = model.PicPath,
                 DateCreated = model.DateCreated,
-                QrCode = model.QrCode
+                QrCode = model.QrCode,
+                Contact = model.Contact,
+                 Address = model.Address
 
             });
         }
@@ -54,6 +56,8 @@ namespace Pegasus.Services.Profile
                 PicPath = x.PicPath,
                 DateCreated = x.DateCreated,
                 QrCode = x.QrCode,
+                Contact =x.Contact,
+                 Address =x.Address,
                 Barangay = new Models.Maintenance.BarangayModel
                 {
                     Id = x.Brgy.Id,
@@ -79,7 +83,9 @@ namespace Pegasus.Services.Profile
                 QDateEnded = x.QDateEnded,
                 PicPath = x.PicPath,
                 DateCreated = x.DateCreated,
-                QrCode = x.QrCode
+                QrCode = x.QrCode,
+                Address =x.Address,
+                 Contact =x.Contact
             }).FirstOrDefault(x => x.Id == id);
         }
 
@@ -98,7 +104,9 @@ namespace Pegasus.Services.Profile
                 QDateEnded = x.QDateEnded,
                 PicPath = x.PicPath,
                 DateCreated = x.DateCreated,
-                QrCode = x.QrCode
+                QrCode = x.QrCode,
+                Address = x.Address,
+                Contact = x.Contact
             }).FirstOrDefault(x => x.Fullname == name);
         }
 
@@ -118,6 +126,8 @@ namespace Pegasus.Services.Profile
                 PicPath = x.PicPath,
                 DateCreated = x.DateCreated,
                 QrCode = x.QrCode,
+                Address = x.Address,
+                Contact = x.Contact,
                 Barangay =new Models.Maintenance.BarangayModel
                 {
                     Id = x.Brgy.Id,
@@ -148,7 +158,9 @@ namespace Pegasus.Services.Profile
                 QDateEnded = model.QDateEnded,
                 PicPath = model.PicPath,
                 DateCreated = model.DateCreated,
-                QrCode = model.QrCode
+                QrCode = model.QrCode,
+                Address = model.Address,
+                Contact = model.Contact
 
             });
         }
