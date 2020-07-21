@@ -12,7 +12,7 @@ namespace Pegasus.Services.Profile
         IEnumerable<PersonProfilesModel> GetPersonProfiles();
         PersonProfilesModel GetPersonProfile(int id);
 
-        PersonProfilesModel GetContacts(int id);
+        List<PersonProfilesModel> GetContacts(int id);
 
         PersonProfilesModel GetPersonProfile(string name);
 

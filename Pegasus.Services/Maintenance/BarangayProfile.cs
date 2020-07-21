@@ -5,6 +5,7 @@ using Pegasus.Repository;
 using System.Linq;
 using Microsoft.VisualBasic;
 using System;
+using Pegasus.Models.Profiles;
 
 namespace Pegasus.Services.Maintenance
 {
@@ -67,6 +68,7 @@ namespace Pegasus.Services.Maintenance
             return _repoBarangay.GetAll().Select(x=> new BarangayModel { 
                 Id=x.Id,
                  LguId =x.LguId,
+                 persons =x.PersonProfile.Select(y=>new PersonProfilesModel { Id=y.Id, Fullname=y.Fullname, PersonStatus=y.PersonStatus }).ToList(),
                  BarangayLgu =x.Lgu.LguName,
                  BarangayAddress=x.BarangayAddress,
                   BarangayLocation=x.BarangayLocation,
@@ -76,6 +78,8 @@ namespace Pegasus.Services.Maintenance
                       DateCreated=x.DateCreated
             }).ToList();
         }
+
+
 
         public void RemoveBarangay(int id)
         {

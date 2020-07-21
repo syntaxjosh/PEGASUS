@@ -8,7 +8,7 @@ using Pegasus.Services.Profile;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Pegasus.Api.Agent.Controllers
+namespace Pegasus.Api.Admin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -25,23 +25,24 @@ namespace Pegasus.Api.Agent.Controllers
         {
             return _personService.GetPersonProfiles();
         }
-        [HttpGet]
-        public IEnumerable<PersonProfilesModel> GetPersonLists()
-        {
-            return _personService.GetPersonProfiles();
-        }
 
+        
+        public IEnumerable<PersonProfilesModel> GetPersonLists(int id)
+        {
+            return _personService.GetContacts(id);
+        }
         // GET api/<BarangayController>/5
+        //[HttpGet("{id}")]
+        //public ActionResult<PersonProfilesModel> Get(int id)
+        //{
+        //    return _personService.GetPersonProfile(id);
+        //}
+
         [HttpGet("{id}")]
-        public ActionResult<PersonProfilesModel> Get(int id)
+        [Route("GetContact")]
+        public ActionResult<PersonProfilesModel> GetContact(int id)
         {
             return _personService.GetPersonProfile(id);
-        }
-
-        [HttpGet("{name}")]
-        public ActionResult<PersonProfilesModel> GetName(string name)
-        {
-            return _personService.GetPersonProfile(name);
         }
 
         // POST api/<BarangayController>
@@ -52,8 +53,8 @@ namespace Pegasus.Api.Agent.Controllers
         }
 
         // PUT api/<BarangayController>/5
-        
-        public void Put(PersonProfilesModel model)
+        [HttpPut("{id}")]
+        public void Put(int id, PersonProfilesModel model)
         {
             _personService.UpdatePersonProfile(model);
         }

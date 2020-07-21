@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Pegasus.Models.Maintenance;
+using Pegasus.Models.Profiles;
 using Pegasus.Services.Maintenance;
+using Pegasus.Services.Profile;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,14 +17,22 @@ namespace Pegasus.Api.Admin.Controllers
     public class BarangayController : ControllerBase
     {
         private readonly IBarangayProfile _brgyprofile;
-        public BarangayController(IBarangayProfile brgyprofile)
+        private readonly IPersonProfileService _personprofile;
+        public BarangayController(IBarangayProfile brgyprofile, IPersonProfileService personprofile)
         {
             _brgyprofile = brgyprofile;
+            _personprofile = personprofile;
         }
 
         // GET: api/<BarangayController>
         [HttpGet]
         public List<BarangayModel> GetBarangyList()
+        {
+            return _brgyprofile.GetBarangays();
+        }
+        [HttpGet]
+        [Route("GetBarangayLists")]
+        public List<BarangayModel> GetBarangyLists()
         {
             return _brgyprofile.GetBarangays();
         }
@@ -32,6 +42,19 @@ namespace Pegasus.Api.Admin.Controllers
         public  ActionResult<BarangayModel> Get(int id)
         {
             return  _brgyprofile.GetBarangay(id);
+        }
+        // GET api/<BarangayController>/5
+        //[HttpGet("{id}")]
+        //[Route("GetContacts")]
+        //public IEnumerable<PersonProfilesModel> GetContacts(int id)
+        //{
+        //    return _personprofile.GetContacts(id);
+        //}
+        [HttpGet("{id}")]
+        [Route("GetPerson")]
+        public ActionResult<PersonProfilesModel> GetPerson(int id)
+        {
+            return _personprofile.GetPersonProfile(id);
         }
 
         //[HttpGet("{name}")]

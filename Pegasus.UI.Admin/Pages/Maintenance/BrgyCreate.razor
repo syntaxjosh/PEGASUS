@@ -11,7 +11,7 @@
 
     async Task CreateBrgy()
     {
-        await http.PostJsonAsync("https://localhost:44399/api/Barangay", brgymodel);
+        await http.PostJsonAsync("https://pegasusapiadmin.azurewebsites.net/api/Barangay", brgymodel);
         navmgr.NavigateTo("/maintenance/brgy");
     }
 }

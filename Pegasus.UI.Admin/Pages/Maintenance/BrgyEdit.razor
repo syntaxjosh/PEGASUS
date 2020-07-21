@@ -11,12 +11,12 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        brgymodel = await http.GetJsonAsync<Pegasus.Models.Maintenance.BarangayModel>($"https://localhost:44399/api/Barangay/" + brgyId);
+        brgymodel = await http.GetJsonAsync<Pegasus.Models.Maintenance.BarangayModel>($"https://pegasusapiadmin.azurewebsites.net/api/Barangay/" + brgyId);
     }
 
     async Task EditBrgy()
     {
-        await http.PutJsonAsync("https://localhost:44399/api/Barangay", brgymodel);
+        await http.PutJsonAsync("https://pegasusapiadmin.azurewebsites.net/api/Barangay", brgymodel);
         navmgr.NavigateTo("/maintenance/brgy");
     }
 }

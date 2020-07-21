@@ -1,73 +1,76 @@
 ﻿
-@page "/contactmap"
-<h3>contactmap</h3>
+@page "/personmap/{personId:int}"
+@inject HttpClient http
+@inject NavigationManager navmgr
+<h3>Contact Tracing</h3>
 
-<Radzen.Blazor.RadzenButton>Hi</Radzen.Blazor.RadzenButton><div class="pg-orgchart">
+<div class="pg-orgchart">
     <div class="org-chart">
         <ul>
             <li>
                 <!--Positive Person-->
                 <div class="user">
-                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/adellecharles/128.jpg" class="img-responsive" />
-                    <div class="name">Luann Brannick</div>
-                    <div class="role">System Architect</div>
-                    <a class="manager" href="#">Mike Dinardo</a>
+                    <RadzenImage Path="css/images/positiveperson.png" Style="width:100px;" />
+                    <div class="name">@principalpersonsmodel.Fullname</div>
+                    <Radzen.Blazor.RadzenLabel>Confirmed COVID-19 Positive</Radzen.Blazor.RadzenLabel>
+
                 </div>
+                @if (contactpersonsmodel != null)
+                {
+
                 <ul>
+                    @foreach (var direct in contactpersonsmodel)
+                    {
+
+                        GetSecondLevel(direct.Id);
                     <li>
                         <div class="user">
-                            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/nzcode/128.jpg" class="img-responsive" />
-                            <div class="name">Lynn Maynard</div>
-                            <div class="role">System Architect</div>
-                            <a class="manager" href="#">Luann Brannick</a>
+                           
+                            <RadzenImage Path="css/images/positiveperson.png" Style="width:100px;" />
+                            <div class="name">@direct.Fullname</div>
+                            
+
+
                         </div>
+                       @if (secondperson != null)
+                       {
                         <ul>
                             <li>
                                 <div class="user">
-                                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/towhidzaman/128.jpg" class="img-responsive" />
-                                    <div class="name">Fleta Odriscoll</div>
-                                    <div class="role">System Architect</div>
-                                    <a class="manager" href="#">Lynn Maynard</a>
+                                    <a href="/personmap/@secondperson.Id">
+                                        <RadzenImage Path="css/images/positiveperson.png" Style="width:100px;" />
+                                        <b>@secondperson.Fullname</b>
+                                    </a>
+
                                 </div>
                             </li>
-                            <li>
-                                <div class="user">
-                                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/arashmil/128.jpg" class="img-responsive" />
-                                    <div class="name">Elfreda Grebin</div>
-                                    <div class="role">System Architect</div>
-                                    <a class="manager" href="#">Lynn Maynard</a>
-                                </div>
-                            </li>
-                        </ul>
+                           
+                        </ul>}
                     </li>
-                    <li>
-                        <div class="user">
-                            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/vista/128.jpg" class="img-responsive" />
-                            <div class="name">Jahn Philson Doe</div>
-                            <div class="role">System Architect</div>
-                            <a class="manager" href="#">Luann Brannick</a>
-                        </div>
-                        <ul>
-                            <li>
-                                <div class="user">
-                                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/marcosmoralez/128.jpg" class="img-responsive" />
-                                    <div class="name">Roy Lemarie</div>
-                                    <div class="role">System Architect</div>
-                                    <a class="manager" href="#">Jahn Philson Doe</a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="user">
-                                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jina/128.jpg" class="img-responsive" />
-                                    <div class="name">Eloisa Stubbolo</div>
-                                    <div class="role">System Architect</div>
-                                    <a class="manager" href="#">Jahn Philson Doe</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
+                   
+                    }
                 </ul>
+                }
             </li>
         </ul>
     </div>
 </div>
+@code{
+    [Parameter] public int personId { get; set; }
+    List<PersonProfilesModel> contactpersonsmodel = new List<PersonProfilesModel>();
+    PersonProfilesModel principalpersonsmodel = new PersonProfilesModel();
+    PersonProfilesModel secondperson = new PersonProfilesModel();
+    List<PersonProfilesModel> allpersonsmodel = new List<PersonProfilesModel>();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        contactpersonsmodel = await http.GetJsonAsync<List<PersonProfilesModel>>($"https://pegasusapiadmin.azurewebsites.net/api/Contacts/" + personId);
+        principalpersonsmodel = await http.GetJsonAsync<PersonProfilesModel>($"https://pegasusapiadmin.azurewebsites.net/api/Person/" + personId);
+        allpersonsmodel = await http.GetJsonAsync<List<PersonProfilesModel>>($"https://pegasusapiadmin.azurewebsites.net/api/Person/");
+    }
+
+     void GetSecondLevel(int id)
+    {
+        secondperson = allpersonsmodel.FirstOrDefault(x => x.PrincipalPersonId == id);
+    }
+}

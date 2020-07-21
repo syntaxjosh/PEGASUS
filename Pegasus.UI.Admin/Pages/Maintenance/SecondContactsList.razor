@@ -1,0 +1,28 @@
+﻿@inject HttpClient http
+<ul>
+    <li>
+        <div class="user">
+            <RadzenImage Path="css/images/positiveperson.png" Style="width:100px;" />
+            <div class="name">@secondpersonsmodel.Fullname</div>
+
+        </div>
+    </li>
+
+</ul>
+
+@code {
+    [Parameter] public PersonProfilesModel directpersonsmodel { get; set; }
+   
+
+    PersonProfilesModel secondpersonsmodel { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadLguProfile();
+    }
+
+    async Task LoadLguProfile()
+    {
+        secondpersonsmodel = await http.GetJsonAsync<PersonProfilesModel>($"https://localhost:44399/api/SecondContacts/" + directpersonsmodel.Id);
+    }
+}

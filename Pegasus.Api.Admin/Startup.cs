@@ -15,6 +15,7 @@ using Pegasus.Data;
 using Pegasus.Repository;
 using Pegasus.Services;
 using Pegasus.Services.Maintenance;
+using Pegasus.Services.Profile;
 
 namespace Pegasus.Api.Admin
 {
@@ -31,13 +32,14 @@ namespace Pegasus.Api.Admin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            //services.AddDbContext<PegasusDbContext>(options =>
-            //   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<PegasusDbContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<PegasusDbContext>(options =>
+            //   options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IBarangayProfile, BarangayProfile>();
             services.AddTransient<ILguProfileService, LguProfileService>();
+            services.AddTransient<IPersonProfileService, PersonProfileService>();
 
         }
 

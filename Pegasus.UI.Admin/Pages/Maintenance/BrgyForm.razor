@@ -55,7 +55,7 @@
 
     async Task LoadLguProfile()
     {
-        lguprofile = await http.GetJsonAsync<List<LguProfileModel>>("https://localhost:44399/api/LguProfile");
+        lguprofile = await http.GetJsonAsync<List<LguProfileModel>>("https://pegasusapiadmin.azurewebsites.net/api/LguProfile");
     }
 
 }

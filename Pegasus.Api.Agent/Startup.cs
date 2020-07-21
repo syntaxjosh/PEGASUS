@@ -32,7 +32,7 @@ namespace Pegasus.Api.Agent
         {
             services.AddControllers();
             services.AddDbContext<PegasusDbContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+              options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IBarangayProfile, BarangayProfile>();
             services.AddTransient<ILguProfileService, LguProfileService>();

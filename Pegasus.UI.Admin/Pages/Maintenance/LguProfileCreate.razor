@@ -11,7 +11,7 @@
 
     async Task CreateLgu()
     {
-        await http.PostJsonAsync("https://localhost:44399/api/LguProfile", lgumodel);
+        await http.PostJsonAsync("https://pegasusapiadmin.azurewebsites.net/api/LguProfile", lgumodel);
         navmgr.NavigateTo("/maintenance/lguprofile");
     }
 }

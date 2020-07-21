@@ -11,12 +11,12 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        lgumodel = await http.GetJsonAsync<Pegasus.Models.Maintenance.LguProfileModel>($"https://localhost:44399/api/LguProfile/"+lguId);
+        lgumodel = await http.GetJsonAsync<Pegasus.Models.Maintenance.LguProfileModel>($"https://pegasusapiadmin.azurewebsites.net/api/LguProfile/" +lguId);
     }
 
     async Task EditClient()
     {
-        await http.PutJsonAsync("https://localhost:44399/api/LguProfile", lgumodel);
+        await http.PutJsonAsync("https://pegasusapiadmin.azurewebsites.net/api/LguProfile", lgumodel);
         navmgr.NavigateTo("/maintenance/lguprofile");
     }
 }

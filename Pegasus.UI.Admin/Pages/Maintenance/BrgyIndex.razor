@@ -56,7 +56,7 @@ else
 
     async Task LoadBarangays()
     {
-        brgy = await http.GetJsonAsync<List<BarangayModel>>("http://localhost:58913/api/Barangay");
+        brgy = await http.GetJsonAsync<List<BarangayModel>>("https://pegasusapiadmin.azurewebsites.net/api/Barangay");
     }
 
     async Task DeleteClient(int clientId)

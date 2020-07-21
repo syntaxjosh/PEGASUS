@@ -38,7 +38,7 @@ namespace Pegasus.Services.Profile
             });
         }
 
-        public PersonProfilesModel GetContacts(int id)
+        public List<PersonProfilesModel> GetContacts(int id)
         {
             return _repoPersonProfile.GetAll().Select(x => new PersonProfilesModel
             {
@@ -54,9 +54,9 @@ namespace Pegasus.Services.Profile
                 PicPath = x.PicPath,
                 DateCreated = x.DateCreated,
                 QrCode = x.QrCode
-            }).FirstOrDefault(x=>x.PrincipalPersonId==id);
+            }).Where(x => x.PrincipalPersonId == id).ToList();
         }
-
+       
         public PersonProfilesModel GetPersonProfile(int id)
         {
             return _repoPersonProfile.GetAll().Select(x => new PersonProfilesModel

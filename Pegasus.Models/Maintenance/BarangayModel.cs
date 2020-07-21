@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pegasus.Models.Profiles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ namespace Pegasus.Models.Maintenance
         public string BarangayLgu { get; set; }
         public int? LguId { get; set; }
         public DateTime? DateCreated { get; set; }
+
+        public List<PersonProfilesModel> persons { get; set; }
     }
 
 }
