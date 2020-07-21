@@ -25,11 +25,7 @@ namespace Pegasus.Api.Agent.Controllers
         {
             return _personService.GetPersonProfiles();
         }
-        [HttpGet]
-        public IEnumerable<PersonProfilesModel> GetPersonLists()
-        {
-            return _personService.GetPersonProfiles();
-        }
+       
 
         // GET api/<BarangayController>/5
         [HttpGet("{id}")]
@@ -38,11 +34,6 @@ namespace Pegasus.Api.Agent.Controllers
             return _personService.GetPersonProfile(id);
         }
 
-        [HttpGet("{name}")]
-        public ActionResult<PersonProfilesModel> GetName(string name)
-        {
-            return _personService.GetPersonProfile(name);
-        }
 
         // POST api/<BarangayController>
         [HttpPost]

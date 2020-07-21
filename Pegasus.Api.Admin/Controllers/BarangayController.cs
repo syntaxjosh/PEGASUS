@@ -43,25 +43,7 @@ namespace Pegasus.Api.Admin.Controllers
         {
             return  _brgyprofile.GetBarangay(id);
         }
-        // GET api/<BarangayController>/5
-        //[HttpGet("{id}")]
-        //[Route("GetContacts")]
-        //public IEnumerable<PersonProfilesModel> GetContacts(int id)
-        //{
-        //    return _personprofile.GetContacts(id);
-        //}
-        [HttpGet("{id}")]
-        [Route("GetPerson")]
-        public ActionResult<PersonProfilesModel> GetPerson(int id)
-        {
-            return _personprofile.GetPersonProfile(id);
-        }
-
-        //[HttpGet("{name}")]
-        //public ActionResult<BarangayModel> GetName(string name)
-        //{
-        //    return _brgyprofile.GetBarangay(name);
-        //}
+        
 
         // POST api/<BarangayController>
         [HttpPost]
