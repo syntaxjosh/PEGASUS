@@ -60,7 +60,7 @@ namespace Pegasus.Repository
 
                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw new Exception($"{nameof(entity)} could not be updated");
             }

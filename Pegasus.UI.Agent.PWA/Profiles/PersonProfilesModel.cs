@@ -15,6 +15,8 @@ namespace Pegagus.UI.Agent.PWA.Profiles
         public int? BgryId { get; set; }
         public string QrCode { get; set; }
         public string PicPath { get; set; }
+        public string Address { get; set; }
+        public string Contact { get; set; }
         public DateTime? DateCreated { get; set; }
       
         public int? PrincipalPersonId { get; set; }

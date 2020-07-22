@@ -2,49 +2,49 @@
 @inject HttpClient http
 @inject IJSRuntime js
 <center><h3>Cases</h3></center>
+<br />
 
+<input type="text" placeholder="Search Name" size="50" @bind-value="SearchTerm" @bind-value:event="oninput" /> &nbsp; &nbsp; Showing @FilteredName.Count out of @person.Count
+<br /><br />
 <a class="btn btn-success" href="/cases/create">Create New</a>
+<br />
 
 @if (person == null)
 {
-<p><em>Loading...</em></p> }
-            else
+    <p><em>Loading...</em></p> }
+else
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Name</th>
+                <th>Barangay</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var per in FilteredName)
             {
+                <tr>
+                    <td><a class="btn btn-info" href="/cases/edit/@per.Id">Edit</a></td>
+                    <td><a class="btn btn-info" href="/cases/contactedperson/@per.Id">View </a></td>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th></th>
+                    <td>@per.Fullname</td>
+                    <td>@per.Barangay.BarangayName</td>
 
-            <th>Name</th>
-            <th>Barangay</th>
-            <th>Status</th>
-
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var per in person)
-        {
-        <tr>
-            <td>
-                <a class="btn btn-info" href="/cases/edit/@per.Id">Edit</a>
-                <a class="btn btn-info" href="/cases/contactedperson/@per.Id">View </a>
-
-            </td>
-
-            <td>@per.Fullname</td>
-            <td>@per.Barangay.BarangayName</td>
-            <td>@per.PersonStatus</td>
-
-
-
-        </tr>}
-    </tbody>
-</table>}
+                </tr>
+            }
+        </tbody>
+    </table>}
 
 @code {
 
     List<PersonProfilesModel> person = new List<PersonProfilesModel>();
+    string SearchTerm { get; set; } = "";
+
 
 
     protected override async Task OnInitializedAsync()
@@ -55,7 +55,8 @@
     async Task LoadBarangays()
     {
         person = await http.GetFromJsonAsync<List<PersonProfilesModel>>("https://localhost:44326/api/Person");
+
     }
 
-
+    List<PersonProfilesModel> FilteredName => person.Where(i => i.Fullname.ToLower().Contains(SearchTerm.ToLower())).ToList();
 }

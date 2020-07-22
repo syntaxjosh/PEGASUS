@@ -3,22 +3,33 @@
 @inject NavigationManager navmgr
 
 
-<a class="btn btn-success" href="cases/createcontact/@brgymodel.Id">Add New Contact</a>
-<br/><br/>
-<h1>Contacted Person</h1>
+ <img class="avatar" src="/image/peronicon.png" alt="Avatar"/>
 
+
+<div>
+    <label>Name :</label>
+    @brgymodel.Fullname
+</div>
+<div>
+    <label>Contact Number : </label> 
+    @brgymodel.Contact
+</div>
+<a class="btn btn-success" href="cases/createcontact/@brgymodel.Id">Add New Contact</a>
+<br />
 @if (person == null)
 {
     <p><em>Loading...</em></p> }
 else
 {
 
+
     <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Barangay</th>
                 <th>Status</th>
-                
+
             </tr>
         </thead>
         <tbody>
@@ -27,14 +38,16 @@ else
                 <tr>
 
                     <td>@per.Fullname</td>
+                    <td>@per.Barangay.BarangayName</td>
                     <td>@per.PersonStatus</td>
 
                 </tr>
-}
+            }
         </tbody>
-    </table>}
+    </table>
+}
 
-@code { 
+@code {
 
     List<PersonProfilesModel> person = new List<PersonProfilesModel>();
 
@@ -53,8 +66,8 @@ else
 
     async Task LoadContactedPerson()
     {
-        person = await http.GetFromJsonAsync<List<PersonProfilesModel>>("https://localhost:44326/api/Contacts/"+ contactId);
+        person = await http.GetFromJsonAsync<List<PersonProfilesModel>>("https://localhost:44326/api/Contacts/" + contactId);
     }
 
-    }
+}
 

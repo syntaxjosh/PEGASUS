@@ -33,7 +33,7 @@ namespace Pegasus.Api.Admin
         {
             services.AddControllers();
             services.AddDbContext<PegasusDbContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+               options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
             //services.AddDbContext<PegasusDbContext>(options =>
             //   options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
