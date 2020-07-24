@@ -32,10 +32,15 @@ namespace Pegasus.Api.Admin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+<<<<<<< HEAD
             services.AddDbContext<PegasusDbContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
+=======
+>>>>>>> upstream/master
             //services.AddDbContext<PegasusDbContext>(options =>
-            //   options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
+            //   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<PegasusDbContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IBarangayProfile, BarangayProfile>();
             services.AddTransient<ILguProfileService, LguProfileService>();

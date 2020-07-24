@@ -9,10 +9,16 @@
         <ul>
             <li>
                 <!--Positive Person-->
-                <div class="user">
-                    <RadzenImage Path="css/images/positiveperson.png" Style="width:100px;" />
+                <div class="user border border-danger">
+                    @if (principalpersonsmodel.PersonStatus == "P")
+                    {<div class="name">COVID-19 Positive</div>}
+                    @if (principalpersonsmodel.PersonStatus == "D")
+                    {<div class="name">Person Under Investigation</div>}
+                    @if (principalpersonsmodel.PersonStatus == "S")
+                    {<div class="name">Person Under Monitoring</div>}
+                    <RadzenImage Path="css/images/person.png" Style="width:100px;" />
                     <div class="name">@principalpersonsmodel.Fullname</div>
-                    <Radzen.Blazor.RadzenLabel>Confirmed COVID-19 Positive</Radzen.Blazor.RadzenLabel>
+
 
                 </div>
                 @if (contactpersonsmodel != null)
@@ -24,11 +30,16 @@
 
                         GetSecondLevel(direct.Id);
                     <li>
-                        <div class="user">
-                           
-                            <RadzenImage Path="css/images/positiveperson.png" Style="width:100px;" />
+                        <div class="user border border-dark">
+                            @if (direct.PersonStatus == "P")
+                            {<div class="name">COVID-19 Positive</div>}
+                            @if (direct.PersonStatus == "D")
+                            {<div class="name">Person Under Investigation</div>}
+                            @if (direct.PersonStatus == "S")
+                            {<div class="name">Person Under Monitoring</div>}
+                            <RadzenImage Path="css/images/person.png" Style="width:100px;" />
                             <div class="name">@direct.Fullname</div>
-                            
+
 
 
                         </div>
@@ -36,10 +47,16 @@
                        {
                         <ul>
                             <li>
-                                <div class="user">
+                                <div class="user border border-dark">
+                                    @if (secondperson.PersonStatus == "P")
+                                    {<div class="name">COVID-19 Positive</div>}
+                                    @if (secondperson.PersonStatus == "D")
+                                    {<div class="name">Person Under Investigation</div>}
+                                    @if (secondperson.PersonStatus == "S")
+                                    {<div class="name">Person Under Monitoring</div>}
                                     <a href="/personmap/@secondperson.Id">
-                                        <RadzenImage Path="css/images/positiveperson.png" Style="width:100px;" />
-                                        <b>@secondperson.Fullname</b>
+                                        <RadzenImage Path="css/images/person.png" Style="width:100px;" />
+                                        <b class="name">@secondperson.Fullname</b>
                                     </a>
 
                                 </div>
@@ -64,12 +81,16 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        contactpersonsmodel = await http.GetJsonAsync<List<PersonProfilesModel>>($"https://pegasusapiadmin.azurewebsites.net/api/Contacts/" + personId);
-        principalpersonsmodel = await http.GetJsonAsync<PersonProfilesModel>($"https://pegasusapiadmin.azurewebsites.net/api/Person/" + personId);
-        allpersonsmodel = await http.GetJsonAsync<List<PersonProfilesModel>>($"https://pegasusapiadmin.azurewebsites.net/api/Person/");
+        //contactpersonsmodel = await http.GetJsonAsync<List<PersonProfilesModel>>($"https://pegasusapiadmin.azurewebsites.net/api/Contacts/" + personId);
+        //principalpersonsmodel = await http.GetJsonAsync<PersonProfilesModel>($"https://pegasusapiadmin.azurewebsites.net/api/Person/" + personId);
+        //allpersonsmodel = await http.GetJsonAsync<List<PersonProfilesModel>>($"https://pegasusapiadmin.azurewebsites.net/api/Person/");
+
+        contactpersonsmodel = await http.GetJsonAsync<List<PersonProfilesModel>>($"https://localhost:44399/api/Contacts/" + personId);
+        principalpersonsmodel = await http.GetJsonAsync<PersonProfilesModel>($"https://localhost:44399/api/Person/" + personId);
+        allpersonsmodel = await http.GetJsonAsync<List<PersonProfilesModel>>($"https://localhost:44399/api/Person/");
     }
 
-     void GetSecondLevel(int id)
+    void GetSecondLevel(int id)
     {
         secondperson = allpersonsmodel.FirstOrDefault(x => x.PrincipalPersonId == id);
     }

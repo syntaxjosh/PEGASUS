@@ -4,6 +4,7 @@ using Pegasus.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,10 +14,13 @@ namespace Pegasus.Services.Profile
     public class PersonProfileService : IPersonProfileService
     {
         private readonly IRepository<PersonProfile> _repoPersonProfile;
-
-        public PersonProfileService(IRepository<PersonProfile> repoPersonProfile)
+        private readonly IRepository<Barangay> _repoBarangay;
+        private readonly IRepository<LguProfile> _repoLgu;
+        public PersonProfileService(IRepository<PersonProfile> repoPersonProfile, IRepository<Barangay> repoBarangay, IRepository<LguProfile> repoLgu)
         {
             _repoPersonProfile = repoPersonProfile;
+            _repoBarangay = repoBarangay;
+            _repoLgu = repoLgu;
         }
 
         public void CreatePersonProfile(PersonProfilesModel model)
@@ -33,9 +37,11 @@ namespace Pegasus.Services.Profile
                 QDateEnded = model.QDateEnded,
                 PicPath = model.PicPath,
                 DateCreated = model.DateCreated,
-                QrCode = model.QrCode,
+                QrCode = GetQrCode(model),
                 Contact = model.Contact,
-                 Address = model.Address
+                 Address = model.Address,
+                 SwabTestDate = model.SwabTestDate
+              
 
             });
         }
@@ -58,6 +64,11 @@ namespace Pegasus.Services.Profile
                 QrCode = x.QrCode,
                 Contact =x.Contact,
                  Address =x.Address,
+                BrgyVerified = x.BrgyVerified,
+                CHDOHVerified = x.CHDOHVerified,
+                BrgyRemarks = x.BrgyRemarks,
+                CHDOHRemarks = x.CHDOHRemarks,
+                SwabTestDate = x.SwabTestDate,
                 Barangay = new Models.Maintenance.BarangayModel
                 {
                     Id = x.Brgy.Id,
@@ -85,7 +96,12 @@ namespace Pegasus.Services.Profile
                 DateCreated = x.DateCreated,
                 QrCode = x.QrCode,
                 Address =x.Address,
-                 Contact =x.Contact
+                 Contact =x.Contact,
+                BrgyVerified = x.BrgyVerified,
+                CHDOHVerified = x.CHDOHVerified,
+                BrgyRemarks = x.BrgyRemarks,
+                CHDOHRemarks = x.CHDOHRemarks,
+                SwabTestDate = x.SwabTestDate,
             }).FirstOrDefault(x => x.Id == id);
         }
 
@@ -106,7 +122,12 @@ namespace Pegasus.Services.Profile
                 DateCreated = x.DateCreated,
                 QrCode = x.QrCode,
                 Address = x.Address,
-                Contact = x.Contact
+                Contact = x.Contact,
+                BrgyVerified = x.BrgyVerified,
+                CHDOHVerified = x.CHDOHVerified,
+                BrgyRemarks = x.BrgyRemarks,
+                CHDOHRemarks = x.CHDOHRemarks,
+                SwabTestDate = x.SwabTestDate,
             }).FirstOrDefault(x => x.Fullname == name);
         }
 
@@ -128,6 +149,11 @@ namespace Pegasus.Services.Profile
                 QrCode = x.QrCode,
                 Address = x.Address,
                 Contact = x.Contact,
+                BrgyVerified = x.BrgyVerified,
+                CHDOHVerified = x.CHDOHVerified,
+                BrgyRemarks = x.BrgyRemarks,
+                CHDOHRemarks = x.CHDOHRemarks,
+                SwabTestDate = x.SwabTestDate,
                 Barangay =new Models.Maintenance.BarangayModel
                 {
                     Id = x.Brgy.Id,
@@ -160,9 +186,26 @@ namespace Pegasus.Services.Profile
                 DateCreated = model.DateCreated,
                 QrCode = model.QrCode,
                 Address = model.Address,
-                Contact = model.Contact
+                Contact = model.Contact,
+                BrgyVerified = model.BrgyVerified,
+                CHDOHVerified = model.CHDOHVerified,
+                BrgyRemarks =model.BrgyRemarks,
+                 CHDOHRemarks = model.CHDOHRemarks,
+                  SwabTestDate = model.SwabTestDate
 
             });
         }
+
+       private string GetQrCode(PersonProfilesModel model)
+        {
+            string lgu = _repoLgu.GetAll().FirstOrDefault(x => x.Id == model.LguId.Value).LguName;
+            string brgy = _repoBarangay.GetAll().FirstOrDefault(x => x.Id == model.BgryId.Value).BarangayName;
+
+            return lgu + " " + brgy + " " + model.Fullname;
+
+        }
+      
+       
+       
     }
 }

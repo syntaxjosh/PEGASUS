@@ -37,6 +37,7 @@ namespace Pegasus.Api.Agent
             services.AddTransient<IBarangayProfile, BarangayProfile>();
             services.AddTransient<ILguProfileService, LguProfileService>();
             services.AddTransient<IPersonProfileService, PersonProfileService>();
+            services.AddTransient<IUserAgentService, UserAgentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
