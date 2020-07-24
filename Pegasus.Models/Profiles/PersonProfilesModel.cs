@@ -30,6 +30,9 @@ namespace Pegasus.Models.Profiles
         public BarangayModel Barangay { get; set; }
         public LguProfileModel Lgu { get; set; }
         public AgentModel Agent { get; set; }
+        public string BrgyRemarks { get; set; }
+        public string CHDOHRemarks { get; set; }
+        public DateTime? SwabTestDate { get; set; }
 
     }
 }

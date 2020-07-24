@@ -12,6 +12,7 @@ namespace Pegasus.Services.Maintenance
     public class LguProfileService : ILguProfileService
     {
         readonly IRepository<LguProfile> _repoLguProfile;
+       
         public LguProfileService(IRepository<LguProfile> repoLguProfile)
         {
             _repoLguProfile = repoLguProfile;
