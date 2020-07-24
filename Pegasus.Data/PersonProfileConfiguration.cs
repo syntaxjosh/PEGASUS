@@ -10,6 +10,11 @@ namespace Pegasus.Data
     {
         public void Configure(EntityTypeBuilder<PersonProfile> entity)
         {
+            entity.HasOne(d => d.AgentNavigation)
+                .WithMany(p => p.PersonProfile)
+                .HasForeignKey(d => d.Agent)
+                .HasConstraintName("FK_PersonProfile_UserAgents");
+
             entity.HasOne(d => d.Brgy)
                 .WithMany(p => p.PersonProfile)
                 .HasForeignKey(d => d.BrgyId)

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Cache;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace Pegasus.Models.Profiles
         public string Fullname { get; set; }
         public int? LguId { get; set; }
         public int? BgryId { get; set; }
+        public int? UserAgent { get; set; }
         public string QrCode { get; set; }
         public string PicPath { get; set; }
         public DateTime? DateCreated { get; set; }
@@ -23,9 +25,11 @@ namespace Pegasus.Models.Profiles
         public DateTime? QDateStarted { get; set; }
         public DateTime? QDateEnded { get; set; }
         public string PersonStatus { get; set; }
-
+        public bool? BrgyVerified { get; set; }
+        public bool? CHDOHVerified { get; set; }
         public BarangayModel Barangay { get; set; }
         public LguProfileModel Lgu { get; set; }
+        public AgentModel Agent { get; set; }
 
     }
 }

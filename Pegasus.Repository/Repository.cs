@@ -25,7 +25,7 @@ namespace Pegasus.Repository
                 throw new Exception("Couldn't retrieve entities");
             }
         }
-
+        
         public void AddAsync(TEntity entity)
         {
             if (entity == null)
@@ -59,6 +59,25 @@ namespace Pegasus.Repository
                 _pegasusDbContext.SaveChanges();
 
                
+            }
+            catch (Exception)
+            {
+                throw new Exception($"{nameof(entity)} could not be updated");
+            }
+        }
+        public void DeleteAsync(TEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException($"{nameof(AddAsync)} entity must not be null");
+            }
+
+            try
+            {
+                _pegasusDbContext.Set<TEntity>().Remove(entity);
+                _pegasusDbContext.SaveChanges();
+
+
             }
             catch (Exception)
             {

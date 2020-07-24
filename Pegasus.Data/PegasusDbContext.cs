@@ -19,6 +19,16 @@ namespace Pegasus.Data
         public virtual DbSet<Barangay> Barangay { get; set; }
         public virtual DbSet<LguProfile> LguProfile { get; set; }
         public virtual DbSet<PersonProfile> PersonProfile { get; set; }
+        public virtual DbSet<UserAgents> UserAgents { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Data Source=SEMDEV;Initial Catalog=pegasusdb;Persist Security Info=True;User ID=sa;Password=Aa@000000");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

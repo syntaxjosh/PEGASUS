@@ -58,6 +58,8 @@ namespace Pegasus.Services.Profile
                 QrCode = x.QrCode,
                 Contact =x.Contact,
                  Address =x.Address,
+                  BrgyVerified =x.BrgyVerified,
+                   CHDOHVerified=x.CHDOHVerified,
                 Barangay = new Models.Maintenance.BarangayModel
                 {
                     Id = x.Brgy.Id,
@@ -85,7 +87,9 @@ namespace Pegasus.Services.Profile
                 DateCreated = x.DateCreated,
                 QrCode = x.QrCode,
                 Address =x.Address,
-                 Contact =x.Contact
+                 Contact =x.Contact,
+                BrgyVerified = x.BrgyVerified,
+                CHDOHVerified = x.CHDOHVerified,
             }).FirstOrDefault(x => x.Id == id);
         }
 
@@ -106,7 +110,9 @@ namespace Pegasus.Services.Profile
                 DateCreated = x.DateCreated,
                 QrCode = x.QrCode,
                 Address = x.Address,
-                Contact = x.Contact
+                Contact = x.Contact,
+                BrgyVerified = x.BrgyVerified,
+                CHDOHVerified = x.CHDOHVerified,
             }).FirstOrDefault(x => x.Fullname == name);
         }
 
@@ -128,6 +134,8 @@ namespace Pegasus.Services.Profile
                 QrCode = x.QrCode,
                 Address = x.Address,
                 Contact = x.Contact,
+                BrgyVerified = x.BrgyVerified,
+                CHDOHVerified = x.CHDOHVerified,
                 Barangay =new Models.Maintenance.BarangayModel
                 {
                     Id = x.Brgy.Id,
@@ -160,7 +168,9 @@ namespace Pegasus.Services.Profile
                 DateCreated = model.DateCreated,
                 QrCode = model.QrCode,
                 Address = model.Address,
-                Contact = model.Contact
+                Contact = model.Contact,
+                BrgyVerified = model.BrgyVerified,
+                CHDOHVerified = model.CHDOHVerified,
 
             });
         }
